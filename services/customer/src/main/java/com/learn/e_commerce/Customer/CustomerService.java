@@ -1,8 +1,7 @@
 package com.learn.e_commerce.Customer;
 
 import com.learn.e_commerce.Exception.CustomerNotFoundException;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -12,19 +11,22 @@ import java.util.stream.Collectors;
 import static java.text.MessageFormat.format;
 
 @Service
-@RequiredArgsConstructor
 public class CustomerService {
 
     private final CustomerRepository repository;
     private final CustomerMapper mapper;
 
+    public CustomerService(CustomerRepository repository, CustomerMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
     public String createCustomer( CustomerRequest request) {
         var customer=repository.save(mapper.toCustomer(request));
         return customer.getId();
     }
 
-    public void updateCustomer(@Valid CustomerRequest request) {
+    public void updateCustomer( CustomerRequest request) {
         var customer=repository.findById(request.id()).orElseThrow(()->new CustomerNotFoundException(
                 format("Cannot update customer:: No customer found with the provided ID:: %s",request.id())));
             mergeCustomer(customer,request);
