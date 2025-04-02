@@ -60,7 +60,7 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
-    public Boolean existById(String id) {
+    public boolean existById(String id) {
 
         return repository.findById(id).isPresent();
     }
