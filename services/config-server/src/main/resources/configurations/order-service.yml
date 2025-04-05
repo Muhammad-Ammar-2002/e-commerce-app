@@ -7,7 +7,7 @@ spring:
       properties:
         spring.json.type.mapping: OrderConfirmation:com.learn.e_commerce.Kafka.OrderConfirmation
   datasource:
-    url: jdbc:postgresql://localhost:5432/order
+    url: jdbc:postgresql://localhost:55432/order
     username: admin
     password: admin
     driver-class-name: org.postgresql.Driver

@@ -1,9 +1,14 @@
 package com.learn.e_commerce.Handler;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Map;
 
-public record ErrorResponse(
-        Map<String,String> errors
-) {
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ErrorResponse {
+    private Map<String, String> errors;
 }

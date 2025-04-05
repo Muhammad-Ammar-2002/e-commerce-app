@@ -1,16 +1,16 @@
 
 services:
-  postgres:
+  postgresql:
     container_name: ms_pg_sql
     image: postgres
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
-      PGDATA: /var/lib/postgresql/data
+      PGDATA: /data/postgres
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - postgres:/data/postgres
     ports:
-      - "5432:5432"
+      - "55432:5432"
     networks:
       - microservices-net
     restart: unless-stopped
@@ -19,18 +19,17 @@ services:
     container_name: ms_pgadmin
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.org}
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     volumes:
       - pgadmin:/var/lib/pgadmin
     ports:
-      - "5050:80"
+      - "55050:80"
     networks:
       - microservices-net
     restart: unless-stopped
-    depends_on:
-      - postgres
+
   zipkin:
     container_name: zipkin
     image: openzipkin/zipkin
@@ -38,69 +37,75 @@ services:
       - "9411:9411"
     networks:
       - microservices-net
+    restart: unless-stopped
+
   mongodb:
     image: mongo
-    container_name: ms_mongo_db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
+    container_name: mongo_db
     ports:
-      - 27017:27017
+      - "27017:27017"
     volumes:
-      - mongo:/data
+      - mongo:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
     networks:
       - microservices-net
     restart: unless-stopped
 
   mongo-express:
-    container_name: ms_mongo_express
     image: mongo-express
+    container_name: mongo_express
+    restart: always
+    depends_on:
+      - mongodb
+    ports:
+      - "8081:8081"
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: admin
       ME_CONFIG_MONGODB_ADMINPASSWORD: admin
-      ME_CONFIG_MONGODB_SERVER: mongodb
-    ports:
-      - 8091:8091
-    restart: always
+      ME_CONFIG_MONGODB_SERVER: mongo_db
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_AUTH_DATABASE: admin
     networks:
       - microservices-net
-    depends_on:
-      - mongodb
+
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
-    container_name: ms_zookeeper
+    container_name: zookeeper
     environment:
-      ZOOKEEPER_SERVER_ID: "1"
-      ZOOKEEPER_CLIENT_PORT: "2181"
-      ZOOKEEPER_TICK_TIME: "2000"
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
     ports:
       - "22181:2181"
     networks:
       - microservices-net
+    restart: unless-stopped
 
   kafka:
-    image: confluentinc/cp-kafka:latest  # Fixed double slash
+    image: confluentinc/cp-kafka:latest
     container_name: ms_kafka
     ports:
       - "9092:9092"
     depends_on:
       - zookeeper
     environment:
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
-      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "1"
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: "1"
-      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
-      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://localhost:9092"
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"  # Optional: Ensures topics are auto-created if needed
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_BROKER_ID: 1
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
     networks:
       - microservices-net
-
-
+    restart: unless-stopped
 
   mail-dev:
-    container_name: ms_mail_dev
+    container_name: ms-mail-dev
     image: maildev/maildev
     ports:
       - "1080:1080"
