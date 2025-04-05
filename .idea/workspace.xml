@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="614d9a61-d604-4639-a9b2-6e90624b5efe" name="Changes" comment="&quot;ignore db data files&quot;">
-      <change afterPath="$PROJECT_DIR$/services/gateway/src/main/java/com/learn/e_commerce/Security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/config-server/src/main/resources/configurations/gateway-service.yml" beforeDir="false" afterPath="$PROJECT_DIR$/services/config-server/src/main/resources/configurations/gateway-service.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/services/gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/gateway/src/main/java/com/learn/e_commerce/gateway/GatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/gateway/src/main/java/com/learn/e_commerce/GatewayApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/gateway/src/test/java/com/learn/e_commerce/gateway/GatewayApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/gateway/src/test/java/com/learn/e_commerce/Security/GatewayApplicationTests.java" afterDir="false" />
-    </list>
+    <list default="true" id="614d9a61-d604-4639-a9b2-6e90624b5efe" name="Changes" comment="&quot;ignore db data files&quot;" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,12 +29,12 @@
     &quot;assignee&quot;: &quot;Muhammad-Ammar-2002&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Muhammad-Ammar-2002/e-commerce-app.git",
-    "accountId": "be482c8f-ad0e-4e8b-b302-6025574d9a10"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Muhammad-Ammar-2002/e-commerce-app.git&quot;,
+    &quot;accountId&quot;: &quot;be482c8f-ad0e-4e8b-b302-6025574d9a10&quot;
   }
-}]]></component>
+}</component>
   <component name="MavenRunner">
     <option name="jreName" value="jbr-17" />
   </component>
