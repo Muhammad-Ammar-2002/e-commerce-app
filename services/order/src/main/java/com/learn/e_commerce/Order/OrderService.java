@@ -12,6 +12,7 @@ import com.learn.e_commerce.Product.ProductClient;
 import com.learn.e_commerce.Product.PurchaseRequest;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderService {
 
     private final OrderRepository repository;
@@ -31,6 +33,7 @@ public class OrderService {
 
 
     public Integer createOrder( OrderRequest request) {
+//        log.info("Request Headers: {}", requestTemplate.headers());
         //check customer --> openFeign
             var customer=this.customerClient.findCustomerById(request.customerId())
                     .orElseThrow(()->new BusinessException("Can not create Order:: No customer exist with the provided id"));
