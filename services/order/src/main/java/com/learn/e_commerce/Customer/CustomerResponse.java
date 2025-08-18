@@ -1,7 +1,7 @@
 package com.learn.e_commerce.Customer;
 
 public record CustomerResponse(
-        String is,
+        String id,
         String firstname,
         String lastname,
         String email

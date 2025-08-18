@@ -1,7 +1,7 @@
 package com.learn.e_commerce.notification;
 
 import com.learn.e_commerce.Kafka.Order.OrderConfirmation;
-import com.learn.e_commerce.Kafka.Payment.PaymentConfirmation;
+import com.learn.e_commerce.Kafka.Payment.PaymentNotificationRequest;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,5 +20,5 @@ public class Notification {
     private NotificationType type;
     private LocalDateTime notificationDate;
     private OrderConfirmation orderConfirmation;
-    private PaymentConfirmation paymentConfirmation;
+    private PaymentNotificationRequest paymentNotificationRequest;
 }

@@ -5,7 +5,7 @@ spring:
       password: admin
       host: localhost
       port: 27017
-      database: customer
+      database: notification
       authentication-database: admin
   kafka:
     consumer:
@@ -17,7 +17,7 @@ spring:
       properties:
         spring.json.trusted.packages: '*'
         spring.json.type.mapping: OrderConfirmation:com.learn.e_commerce.Kafka.Order.OrderConfirmation
-                                , PaymentConfirmation:com.learn.e_commerce.Kafka.Payment.PaymentConfirmation
+                                , PaymentNotificationRequest:com.learn.e_commerce.Kafka.Payment.PaymentNotificationRequest
 
   mail:
     host: localhost

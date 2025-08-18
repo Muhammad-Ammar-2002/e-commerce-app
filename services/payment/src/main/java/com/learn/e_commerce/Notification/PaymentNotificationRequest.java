@@ -1,8 +1,10 @@
-package com.learn.e_commerce.Kafka.Payment;
+package com.learn.e_commerce.Notification;
+
+import com.learn.e_commerce.payment.Payment.PaymentMethod;
 
 import java.math.BigDecimal;
 
-public record PaymentConfirmation(
+public record PaymentNotificationRequest(
         String orderReference,
         BigDecimal amount,
         PaymentMethod paymentMethod,

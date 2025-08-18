@@ -2,7 +2,7 @@ package com.learn.e_commerce.Kafka;
 
 import com.learn.e_commerce.Email.EmailService;
 import com.learn.e_commerce.Kafka.Order.OrderConfirmation;
-import com.learn.e_commerce.Kafka.Payment.PaymentConfirmation;
+import com.learn.e_commerce.Kafka.Payment.PaymentNotificationRequest;
 import com.learn.e_commerce.notification.Notification;
 import com.learn.e_commerce.notification.NotificationRepository;
 import jakarta.mail.MessagingException;
@@ -26,22 +26,22 @@ public class NotificationConsumer {
     private final EmailService emailService;
 
     @KafkaListener(topics = "payment-topic")
-    public void consumePaymentSuccessNotification(PaymentConfirmation paymentConfirmation) throws MessagingException {
-        log.info(format("Consuming message from payment topic ::%s",paymentConfirmation));
+    public void consumePaymentSuccessNotification(PaymentNotificationRequest paymentNotificationRequest) throws MessagingException {
+        log.info(format("Consuming message from payment topic ::%s", paymentNotificationRequest));
         repository.save(
                 Notification.builder()
                         .type(PAYMENT_CONFIRMATION)
                         .notificationDate(LocalDateTime.now())
-                        .paymentConfirmation(paymentConfirmation)
+                        .paymentNotificationRequest(paymentNotificationRequest)
                         .build()
         );
         // todo send email
-        var customerName=paymentConfirmation.customerFirstname()+" "+paymentConfirmation.customerLastname();
+        var customerName= paymentNotificationRequest.customerFirstname()+" "+ paymentNotificationRequest.customerLastname();
         emailService.sendPaymentSuccessEmail(
-                paymentConfirmation.customerEmail(),
+                paymentNotificationRequest.customerEmail(),
                 customerName,
-                paymentConfirmation.amount(),
-                paymentConfirmation.orderReference()
+                paymentNotificationRequest.amount(),
+                paymentNotificationRequest.orderReference()
         );
 
     }
