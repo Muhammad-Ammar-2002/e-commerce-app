@@ -1,5 +1,7 @@
 server:
   port: 8090
+  servlet:
+    context-path: "/Customer-Service"
 spring:
   data:
     mongodb:
@@ -9,3 +11,9 @@ spring:
       port: 27017
       database: customer
       authentication-database: admin
+#  springdoc:
+#    api-docs:
+#      path: /api-docs
+#    swagger-ui:
+#      path: /swagger-ui.html
+#      operationsSorter: method
