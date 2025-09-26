@@ -1,3 +1,8 @@
+server:
+  port: 8070
+  servlet:
+    context-path: "/Order-Service"
+
 spring:
   kafka:
     producer:
@@ -17,13 +22,37 @@ spring:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-server:
-  port: 8070
-  servlet:
-    context-path: "/Order-Service"
-
 application:
   config:
     customer-url: http://localhost:8222/api/v1/customer
     payment-url:  http://localhost:8222/api/v1/payment
     product-url:  http://localhost:8222/api/v1/product
+
+management:
+
+  health:
+    show-details: ALWAYS
+  circuitbreaker:
+    enabled: true
+  endpoint:
+    health:
+      show-details: ALWAYS
+      #apring boot admin
+    endpoint:
+      web:
+        exposure:
+          include: "*"
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      getCustomer:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 10
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 2
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED

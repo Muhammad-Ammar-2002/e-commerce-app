@@ -1,0 +1,33 @@
+
+spring:
+  config:
+    import: optional:configserver:http://CONFIG-SERVER:8888
+  application:
+    name: LogApp-service
+
+# Server configuration will be overridden by config server
+#server:
+#  port: 0  # Will be overridden by config server
+
+elasticsearch:
+  host: ${elasticsearch.host}
+  port: ${elasticsearch.port}
+
+# Actuator endpoints for monitoring
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+
+# Logging configuration (can be overridden by config server)
+logging:
+  level:
+    root: INFO
+    com.example.elasticsearch: DEBUG
+    org.elasticsearch.client: DEBUG

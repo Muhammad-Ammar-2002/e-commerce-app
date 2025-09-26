@@ -1,21 +1,19 @@
 package com.example.elasticsearch.Controller;
 
-import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.example.elasticsearch.Entity.Product;
-import com.example.elasticsearch.Service.ElasticSearchService;
 import com.example.elasticsearch.Service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/_products")
+
 public class ProductController {
 
     private final ProductService productService;
+
 
 
     @GetMapping("/findAll")
@@ -28,7 +26,7 @@ public class ProductController {
         return productService.saveProduct(product);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update/{id}")
     public Product updateProduct(@RequestBody Product product, @PathVariable Integer id) {
         return productService.updateProduct(product, id);
     }

@@ -1,0 +1,32 @@
+server:
+  port: 6060
+  servlet:
+    context-path: "/elasticLog"
+
+  data:
+    elasticsearch:
+      host: localhost
+      port: 9200
+      client:
+        reactive:
+          endpoints: ${ELASTICSEARCH_HOST:localhost}:${ELASTICSEARCH_PORT:9200}
+          username: ${ELASTICSEARCH_USERNAME:}
+          password: ${ELASTICSEARCH_PASSWORD:}
+
+# Application specific properties
+ecommerce:
+  elasticsearch:
+    index:
+      product: products
+    batch-size: 100
+
+elasticsearch:
+  host: localhost
+  port: 9200
+
+# Logging configuration
+logging:
+  level:
+    org.springframework.data.elasticsearch: DEBUG
+    org.elasticsearch: INFO
+    com.example.elasticsearch: DEBUG

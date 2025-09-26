@@ -21,6 +21,8 @@ public class ElasticSearchService {
 
     private final ElasticsearchClient elasticSearchClient;
 
+
+
     public SearchResponse<Map> matchAllQuery() throws IOException
     {
 
@@ -78,8 +80,7 @@ public class ElasticSearchService {
 
 
 
-    public List<Object> mappingResponse(SearchResponse<Object> response) throws IOException
-    {
+    public List<Object> mappingResponse(SearchResponse<Object> response) {
         List<Hit<Object>> objectHits = response.hits().hits();
         List<Object> object = new ArrayList<>();
         objectHits.forEach(hit->object.add(hit.source()));
@@ -88,3 +89,5 @@ public class ElasticSearchService {
     }
 
 }
+
+
